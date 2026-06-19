@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>طريق الحسين عليه السلام</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --gold: #c9a84c;
+    --gold-light: #e8c96a;
+    --gold-dark: #9a7830;
+    --blood: #8b0000;
+    --blood-light: #b30000;
+    --cream: #f5f0e8;
+    --cream-dim: #d4cfc7;
+    --gray: #1a1a1a;
+    --gray2: #222;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 18px;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  /* ===== STARS ===== */
+  #stars-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  /* ===== GOLDEN LINE ===== */
+  .golden-line {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 3px;
+    height: 0;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    z-index: 999;
+    transition: height 0.1s linear;
+    box-shadow: 0 0 10px var(--gold);
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed;
+    top: 0; right: 0; left: 0;
+    z-index: 100;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    padding: 0.8rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: 'Amiri', serif;
+    font-size: 1.3rem;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    flex-wrap: wrap;
+  }
+
+  .nav-links a {
+    color: var(--cream-dim);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ===== SECTIONS ===== */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.8rem;
+    color: var(--gold);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+  }
+
+  h2.section-title {
+    font-family: 'Amiri', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--cream);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+
+  .gold-divider {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(to left, transparent, var(--gold), transparent);
+    margin: 1.5rem 0;
+  }
+
+  /* ===== HERO ===== */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    max-width: 100%;
+    position: relative;
+  }
+
+  .hero-bismillah {
+    font-family: 'Amiri', serif;
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    color: var(--gold);
+    opacity: 0.7;
+    margin-bottom: 2rem;
+    letter-spacing: 0.1em;
+  }
+
+  .hero-title {
+    font-family: 'Amiri', serif;
+    font-size: clamp(3rem, 10vw, 7rem);
+    color: var(--gold);
+    line-height: 1.1;
+    text-shadow: 0 0 60px rgba(201,168,76,0.3);
+    animation: glow-pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% { text-shadow: 0 0 40px rgba(201,168,76,0.2); }
+    50% { text-shadow: 0 0 80px rgba(201,168,76,0.5), 0 0 120px rgba(201,168,76,0.2); }
+  }
+
+  .hero-subtitle {
+    font-family: 'Amiri', serif;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: var(--cream-dim);
+    margin-top: 1rem;
+    opacity: 0.85;
+  }
+
+  .hero-ayah {
+    margin-top: 2.5rem;
+    max-width: 600px;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: var(--cream-dim);
+    border-right: 3px solid var(--blood);
+    padding-right: 1.5rem;
+    text-align: right;
+    line-height: 2;
+  }
+
+  .hero-ayah cite {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--gold);
+    margin-top: 0.5rem;
+    font-style: normal;
+  }
+
+  .hero-scroll {
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 0.85rem;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* ===== BLOOD HORIZONTAL LINE ===== */
+  .blood-separator {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to left, transparent, var(--blood) 30%, var(--blood) 70%, transparent);
+    margin: 0;
+    overflow: visible;
+  }
+
+  .blood-drop {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 12px;
+    background: var(--blood);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    box-shadow: 0 0 15px var(--blood-light);
+  }
+
+  /* ===== NASAB (Family Tree) ===== */
+  .nasab-tree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin-top: 3rem;
+  }
+
+  .nasab-node {
+    background: rgba(201,168,76,0.07);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 8px;
+    padding: 0.8rem 2rem;
+    text-align: center;
+    min-width: 220px;
+    position: relative;
+    transition: all 0.3s;
+  }
+
+  .nasab-node:hover {
+    background: rgba(201,168,76,0.15);
+    border-color: var(--gold);
+    transform: scale(1.03);
+  }
+
+  .nasab-node .name {
+    font-family: 'Amiri', serif;
+    font-size: 1.3rem;
+    color: var(--gold);
+  }
+
+  .nasab-node .title {
+    font-size: 0.85rem;
+    color: var(--cream-dim);
+    margin-top: 0.2rem;
+  }
+
+  .nasab-line {
+    width: 2px;
+    height: 30px;
+    background: linear-gradient(to bottom, var(--gold-dark), var(--blood));
+    margin: 0 auto;
+  }
+
+  .nasab-node.highlight-node {
+    background: rgba(139,0,0,0.2);
+    border-color: var(--blood);
+    border-width: 2px;
+    box-shadow: 0 0 30px rgba(139,0,0,0.3);
+  }
+
+  .nasab-node.highlight-node .name {
+    color: #ff6666;
+    font-size: 1.6rem;
+  }
+
+  /* ===== TIMELINE ===== */
+  .timeline {
+    position: relative;
+    margin-top: 3rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    right: 20px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--gold-dark), var(--blood));
+  }
+
+  .timeline-item {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+    padding-right: 60px;
+    position: relative;
+    opacity: 0;
+    transform: translateX(30px);
+    transition: all 0.6s ease;
+  }
+
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .timeline-dot {
+    position: absolute;
+    right: 12px;
+    top: 6px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 3px solid var(--black);
+    box-shadow: 0 0 10px var(--gold);
+    flex-shrink: 0;
+  }
+
+  .timeline-dot.blood { background: var(--blood); box-shadow: 0 0 10px var(--blood); }
+
+  .timeline-year {
+    font-family: 'Amiri', serif;
+    font-size: 1rem;
+    color: var(--gold);
+    white-space: nowrap;
+    min-width: 80px;
+    padding-top: 0.1rem;
+  }
+
+  .timeline-content h3 {
+    font-family: 'Amiri', serif;
+    font-size: 1.2rem;
+    color: var(--cream);
+    margin-bottom: 0.3rem;
+  }
+
+  .timeline-content p {
+    font-size: 0.95rem;
+    color: var(--cream-dim);
+    line-height: 1.7;
+  }
+
+  /* ===== GOALS CARDS ===== */
+  .goals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .goal-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: all 0.4s;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .goal-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .goal-card:hover {
+    background: rgba(201,168,76,0.08);
+    border-color: var(--gold);
+    transform: translateY(-5px);
+  }
+
+  .goal-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .goal-card h3 {
+    font-family: 'Amiri', serif;
+    font-size: 1.3rem;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+
+  .goal-card p {
+    font-size: 0.95rem;
+    color: var(--cream-dim);
+    line-height: 1.7;
+  }
+
+  /* ===== QUOTES ===== */
+  .quotes-list {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .quote-item {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: all 0.5s ease;
+  }
+
+  .quote-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .quote-mark {
+    font-family: 'Amiri', serif;
+    font-size: 4rem;
+    color: var(--blood);
+    line-height: 0.8;
+    flex-shrink: 0;
+    margin-top: 0.5rem;
+  }
+
+  .quote-text {
+    font-family: 'Amiri', serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    color: var(--cream);
+    line-height: 1.8;
+    border-right: 3px solid var(--gold);
+    padding-right: 1rem;
+  }
+
+  /* ===== KARBALA DAYS ===== */
+  .karbala-grid {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .karbala-card {
+    background: rgba(139,0,0,0.08);
+    border: 1px solid rgba(139,0,0,0.3);
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: all 0.3s;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .karbala-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .karbala-card:hover {
+    background: rgba(139,0,0,0.15);
+    border-color: var(--blood-light);
+  }
+
+  .karbala-day {
+    font-size: 0.8rem;
+    color: var(--blood-light);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .karbala-card h3 {
+    font-family: 'Amiri', serif;
+    font-size: 1.2rem;
+    color: var(--cream);
+    margin-bottom: 0.6rem;
+  }
+
+  .karbala-card p {
+    font-size: 0.9rem;
+    color: var(--cream-dim);
+    line-height: 1.7;
+  }
+
+  /* ===== MAP ===== */
+  #karbala-map-section {
+    max-width: 100%;
+    padding: 6rem 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .map-container {
+    max-width: 900px;
+    margin: 3rem auto 0;
+    position: relative;
+  }
+
+  .map-svg-wrapper {
+    width: 100%;
+    background: rgba(10,10,10,0.9);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 1rem;
+  }
+
+  /* ===== ADAB CARDS ===== */
+  .adab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .adab-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 10px;
+    padding: 1.8rem;
+    transition: all 0.3s;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .adab-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .adab-card:hover {
+    background: rgba(201,168,76,0.06);
+    border-color: rgba(201,168,76,0.4);
+  }
+
+  .adab-number {
+    font-family: 'Amiri', serif;
+    font-size: 2.5rem;
+    color: rgba(201,168,76,0.2);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .adab-card h3 {
+    font-family: 'Amiri', serif;
+    font-size: 1.2rem;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+  }
+
+  .adab-card p {
+    font-size: 0.95rem;
+    color: var(--cream-dim);
+    line-height: 1.7;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 4rem 2rem 3rem;
+    border-top: 1px solid rgba(201,168,76,0.1);
+  }
+
+  footer .footer-title {
+    font-family: 'Amiri', serif;
+    font-size: 1.5rem;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  footer p {
+    font-size: 0.9rem;
+    color: rgba(245,240,232,0.35);
+  }
+
+  /* ===== SECTION BG VARIANTS ===== */
+  .bg-subtle {
+    background: rgba(255,255,255,0.015);
+  }
+
+  .full-width-section {
+    max-width: 100% !important;
+    background: rgba(139,0,0,0.04);
+  }
+
+  /* ===== SCROLL REVEAL ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 640px) {
+    nav { padding: 0.6rem 1rem; }
+    .nav-links { gap: 0.8rem; }
+    section { padding: 4rem 1.2rem; }
+    .timeline::before { right: 10px; }
+    .timeline-item { padding-right: 40px; }
+    .timeline-dot { right: 2px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="stars-canvas"></canvas>
+<div class="golden-line" id="golden-line"></div>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">طريق الحسين ع</span>
+  <ul class="nav-links">
+    <li><a href="#nasab">نسبه</a></li>
+    <li><a href="#hayat">حياته</a></li>
+    <li><a href="#hadaf">هدفه</a></li>
+    <li><a href="#kalam">كلامه</a></li>
+    <li><a href="#karbala">كربلاء</a></li>
+    <li><a href="#karbala-map-section">الخارطة</a></li>
+    <li><a href="#adab">آداب أهل البيت</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+  <h1 class="hero-title">طريقُ الحُسين</h1>
+  <div class="hero-subtitle">عليه السلام</div>
+  <blockquote class="hero-ayah">
+    إِنَّ اللَّهَ اصْطَفَىٰ آدَمَ وَنُوحًا وَآلَ إِبْرَاهِيمَ وَآلَ عِمْرَانَ عَلَى الْعَالَمِينَ
+    <cite>— سورة آل عمران: ٣٣</cite>
+  </blockquote>
+  <div class="hero-scroll">
+    <span>تمرّر للأسفل</span>
+    <span>↓</span>
+  </div>
+</section>
+
+<div class="blood-separator"><div class="blood-drop"></div></div>
+
+<!-- NASAB -->
+<section id="nasab" style="text-align:center;">
+  <div class="section-label">الجذور</div>
+  <h2 class="section-title">نسبه الشريف</h2>
+  <div class="gold-divider" style="margin:1.5rem auto;"></div>
+  <p class="reveal" style="color:var(--cream-dim); max-width:650px; margin:0 auto 1rem;">
+    ينحدر الإمام الحسين عليه السلام من أشرف الأنساب وأطهرها، متصلاً بالنبي الأكرم محمد صلى الله عليه وآله من طرف أبيه وأمه معاً.
+  </p>
+
+  <div class="nasab-tree reveal">
+    <div class="nasab-node">
+      <div class="name">النبي محمد ﷺ</div>
+      <div class="title">خاتم الأنبياء والمرسلين</div>
+    </div>
+    <div class="nasab-line"></div>
+    <div class="nasab-node">
+      <div class="name">السيدة فاطمة الزهراء ع</div>
+      <div class="title">سيدة نساء العالمين — بنت النبي ﷺ</div>
+    </div>
+    <div class="nasab-line"></div>
+    <div class="nasab-node">
+      <div class="name">الإمام علي بن أبي طالب ع</div>
+      <div class="title">أمير المؤمنين — الإمام الأول</div>
+    </div>
+    <div class="nasab-line"></div>
+    <div class="nasab-node">
+      <div class="name">الإمام الحسن المجتبى ع</div>
+      <div class="title">الإمام الثاني — أخ الحسين ع</div>
+    </div>
+    <div class="nasab-line" style="background:linear-gradient(to bottom, var(--blood), var(--blood-light));"></div>
+    <div class="nasab-node highlight-node">
+      <div class="name">الإمام الحسين ع</div>
+      <div class="title">سيد الشهداء — ريحانة رسول الله ﷺ</div>
+    </div>
+  </div>
+</section>
+
+<div class="blood-separator"><div class="blood-drop"></div></div>
+
+<!-- HAYAT -->
+<section id="hayat">
+  <div class="section-label">السيرة</div>
+  <h2 class="section-title">حياته الشريفة</h2>
+  <div class="gold-divider"></div>
+  <p class="reveal" style="color:var(--cream-dim); margin-bottom:1rem;">
+    عاش الإمام الحسين عليه السلام ستةً وخمسين عاماً كانت كلها درساً في الكرامة والعزة والإباء.
+  </p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">٣ شعبان ٤ هـ</div>
+      <div class="timeline-content">
+        <h3>الولادة المباركة</h3>
+        <p>وُلد في المدينة المنورة. بشّر به النبي ﷺ قبل ولادته، وأذّن في أذنه، وسمّاه الحسين. قال ﷺ: «حسينٌ مني وأنا من حسين».</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">١١ هـ</div>
+      <div class="timeline-content">
+        <h3>وفاة جدّه النبي ﷺ</h3>
+        <p>فقد الحسين ع جدّه الأكرم وهو في السابعة من عمره. ونشأ في كنف أبيه أمير المؤمنين علي ع.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">٢٨ هـ</div>
+      <div class="timeline-content">
+        <h3>استشهاد أمه السيدة فاطمة ع</h3>
+        <p>ترعرع في أحضان أمّه الطاهرة التي استُشهدت بعد وفاة النبي ﷺ بقليل، وكان الحسين شاهداً على ظلم أبيه وأمّه.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">٤٠ هـ</div>
+      <div class="timeline-content">
+        <h3>استشهاد أبيه الإمام علي ع</h3>
+        <p>استُشهد أمير المؤمنين علي ع في محراب مسجد الكوفة، ورثاه الحسين بدموعٍ وحزنٍ عميق، وتولّى أخوه الحسن الإمامة من بعده.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">٥٠ هـ</div>
+      <div class="timeline-content">
+        <h3>استشهاد أخيه الإمام الحسن ع</h3>
+        <p>تولّى الإمام الحسين ع الإمامة بعد أخيه الحسن المجتبى ع الذي استُشهد مسموماً، فأصبح الحجة الإلهية على الخلق.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">٦٠ هـ</div>
+      <div class="timeline-content">
+        <h3>رفض البيعة ليزيد</h3>
+        <p>حين مات معاوية وطلب يزيد البيعة، رفض الحسين ع بصرامة قائلاً: «مثلي لا يُبايع مثله». وغادر المدينة نحو مكة مُحرَّمةً الله.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">رجب ٦٠ هـ</div>
+      <div class="timeline-content">
+        <h3>الوصول إلى مكة المكرمة</h3>
+        <p>أقام الحسين ع في مكة أشهراً يستقبل الوفود، وتواترت إليه رسائل أهل الكوفة تطلب منه القدوم نصرةً للحق.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">رمضان ٦٠ هـ</div>
+      <div class="timeline-content">
+        <h3>إيفاد مسلم بن عقيل إلى الكوفة</h3>
+        <p>أرسل ابن عمه مسلم بن عقيل سفيراً له إلى الكوفة، فبايعه الآلاف، غير أن ابن زياد قمع الثورة واستشهد مسلم.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot blood"></div>
+      <div class="timeline-year">١٠ محرم ٦١ هـ</div>
+      <div class="timeline-content">
+        <h3>يوم عاشوراء — الشهادة الكبرى</h3>
+        <p>في سهل كربلاء، واجه الحسين ع جيشاً بالآلاف بصحبة أهله وأصحابه السبعين وأكثر. قاتل حتى الشهادة، ورُفع رأسه الشريف، وسُبي آله.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="blood-separator"><div class="blood-drop"></div></div>
+
+<!-- HADAF -->
+<section id="hadaf">
+  <div class="section-label">الرسالة</div>
+  <h2 class="section-title">هدفه من النهضة</h2>
+  <div class="gold-divider"></div>
+  <p class="reveal" style="color:var(--cream-dim);">
+    لم تكن نهضة الحسين ع ثورةً عاطفية، بل كانت مشروعاً إصلاحياً متكاملاً بيّنه بنفسه في وصيّته وخطبه.
+  </p>
+
+  <div class="goals-grid">
+    <div class="goal-card">
+      <div class="goal-icon">🕌</div>
+      <h3>إحياء الدين</h3>
+      <p>قال ع: «إني لم أخرج أشراً ولا بطراً، وإنما خرجت لطلب الإصلاح في أمة جدي». هدفه إنقاذ الإسلام من التحريف.</p>
+    </div>
+    <div class="goal-card">
+      <div class="goal-icon">⚖️</div>
+      <h3>رفع الظلم</h3>
+      <p>رأى الفسق والفساد يعلو في الدولة الأموية، فرفع راية العدل مواجهاً الطغيان بصدر عارٍ وبيان واضح.</p>
+    </div>
+    <div class="goal-card">
+      <div class="goal-icon">📖</div>
+      <h3>إقامة الحجة</h3>
+      <p>أراد أن يقيم الحجة على الأمة جيلاً بعد جيل، ليعلم كل إنسان أن السكوت على الظلم ليس من الدين.</p>
+    </div>
+    <div class="goal-card">
+      <div class="goal-icon">🌹</div>
+      <h3>حفظ الكرامة</h3>
+      <p>«هيهات مِنّا الذلة» — جملة رسمت معيار الإنسانية. رفض ع أن يُبايع الفسق حتى لو كلّفه الحياة.</p>
+    </div>
+  </div>
+</section>
+
+<div class="blood-separator"><div class="blood-drop"></div></div>
+
+<!-- KALAM -->
+<section id="kalam">
+  <div class="section-label">الحكمة</div>
+  <h2 class="section-title">من كلامه الشريف</h2>
+  <div class="gold-divider"></div>
+
+  <div class="quotes-list">
+    <div class="quote-item">
+      <div class="quote-mark">❝</div>
+      <div class="quote-text">
+        هَيهاتَ مِنَّا الذِّلَّة، أبى اللهُ ذلكَ لَنا ورسولُهُ والمؤمنون.
+      </div>
+    </div>
+    <div class="quote-item">
+      <div class="quote-mark">❝</div>
+      <div class="quote-text">
+        الموتُ أولى من رُكوبِ العار، والعارُ أولى من دخولِ النار.
+      </div>
+    </div>
+    <div class="quote-item">
+      <div class="quote-mark">❝</div>
+      <div class="quote-text">
+        إنَّ الناسَ عبيدُ الدنيا، والدينُ لَعِقٌ على ألسنتِهم، يَحوطونَهُ ما دَرَّت مَعايشُهم، فإذا مُحِّصوا بالبلاءِ قَلَّ الديّانون.
+      </div>
+    </div>
+    <div class="quote-item">
+      <div class="quote-mark">❝</div>
+      <div class="quote-text">
+        ألا وإنَّ الدعيَّ ابنَ الدعيِّ قد ركَزَ بينَ اثنتين، بينَ السِّلَّةِ والذِّلَّة، وهيهاتَ مِنّا الذِّلَّة.
+      </div>
+    </div>
+    <div class="quote-item">
+      <div class="quote-mark">❝</div>
+      <div class="quote-text">
+        إنْ لم يكن لكم دِينٌ وكنتُم لا تخافون المَعاد، فكونوا أحراراً في دنياكم.
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="blood-separator"><div class="blood-drop"></div></div>
+
+<!-- KARBALA DAYS -->
+<section id="karbala" class="full-width-section" style="max-width:100%; padding:6rem 2rem;">
+  <div style="max-width:1000px; margin:0 auto;">
+    <div class="section-label">المحطات</div>
+    <h2 class="section-title">واقعة الطف — كربلاء</h2>
+    <div class="gold-divider"></div>
+    <p class="reveal" style="color:var(--cream-dim); margin-bottom:1rem;">
+      أيام كربلاء لم تكن مجرد معركة — كانت ملحمة إنسانية خلّدها التاريخ وأبكت السماء.
+    </p>
+
+    <div class="karbala-grid">
+      <div class="karbala-card">
+        <div class="karbala-day">٢ محرم ٦١ هـ</div>
+        <h3>الوصول إلى كربلاء</h3>
+        <p>أجبرت خيول الحر بن يزيد الرياحي قافلة الحسين ع على التوقف في أرض كربلاء المقدسة.</p>
+      </div>
+      <div class="karbala-card">
+        <div class="karbala-day">٣–٧ محرم</div>
+        <h3>الحصار والمفاوضات</h3>
+        <p>حاول ابن سعد المفاوضة، ورفض الحسين ع البيعة مجدداً. المخيم محاصر والماء قُطع عن الأطفال والنساء.</p>
+      </div>
+      <div class="karbala-card">
+        <div class="karbala-day">٧ محرم</div>
+        <h3>قطع الماء</h3>
+        <p>أمر ابن زياد بمنع الماء عن معسكر الحسين ع فعطش الأطفال والنساء والأصحاب ثلاثة أيام.</p>
+      </div>
+      <div class="karbala-card">
+        <div class="karbala-day">ليلة عاشوراء</div>
+        <h3>ليلة الوداع والعبادة</h3>
+        <p>قضى الإمام وأصحابه ليلتهم في الصلاة والتلاوة والدعاء. أطفأ السراج ليمن من يريد الرحيل بالتغيّب دون خجل.</p>
+      </div>
+      <div class="karbala-card">
+        <div class="karbala-day">فجر ١٠ محرم</div>
+        <h3>بدء المعركة</h3>
+        <p>صلّى الحسين ع صلاة الفجر جماعةً ثم واجه الجيش. بدأت المعركة بالرمي والطعن وظل أصحابه يقاتلون واحداً بعد الآخر.</p>
+      </div>
+      <div class="karbala-card">
+        <div class="karbala-day">ضحى عاشوراء</div>
+        <h3>استشهاد الأصحاب والأهل</h3>
+        <p>سقط الأصحاب الأبطال، ثم أبناء أخيه عقيل، ثم فتيان بني هاشم، وآخرهم ولده علي الأكبر قرة عينه.</p>
+      </div>
+      <div class="karbala-card">
+        <div class="karbala-day">ظهر عاشوراء</div>
+        <h3>شهادة العباس ع</h3>
+        <p>خرج العباس بن علي ع لجلب الماء للأطفال، فقُطعت يداه وأُصيب بسهم في عينه، وسقط على شاطئ الفرات.</p>
+      </div>
+      <div class="karbala-card" style="border-color:var(--blood); box-shadow: 0 0 20px rgba(139,0,0,0.3);">
+        <div class="karbala-day" style="color:#ff4444;">١٠ محرم — العصر</div>
+        <h3>الشهادة الكبرى</h3>
+        <p>استُشهد الحسين ع وحيداً بعد أن قاتل قتال الأبطال. حُزّ رأسه الشريف ورُفع على الرمح، وسُبيت النساء والأطفال.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="blood-separator"><div class="blood-drop"></div></div>
+
+<!-- MAP -->
+<section id="karbala-map-section" style="max-width:100%; padding:6rem 2rem;">
+  <div style="max-width:1000px; margin:0 auto;">
+    <div class="section-label">الجغرافيا المقدسة</div>
+    <h2 class="section-title">خارطة أرض كربلاء</h2>
+    <div class="gold-divider"></div>
+    <p class="reveal" style="color:var(--cream-dim); margin-bottom:2rem;">
+      مواقع الحدث الأعظم في سهل كربلاء — من مخيم الحسين ع إلى شاطئ الفرات.
+    </p>
+
+    <div class="map-svg-wrapper reveal">
+      <svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" width="100%" style="font-family:'Noto Naskh Arabic',serif; direction:rtl;">
+        <!-- Background -->
+        <rect width="900" height="520" fill="#0d0d0d"/>
+
+        <!-- Desert texture lines -->
+        <g stroke="#1a1500" stroke-width="0.5" opacity="0.4">
+          <line x1="0" y1="60" x2="900" y2="60"/>
+          <line x1="0" y1="120" x2="900" y2="120"/>
+          <line x1="0" y1="180" x2="900" y2="180"/>
+          <line x1="0" y1="240" x2="900" y2="240"/>
+          <line x1="0" y1="300" x2="900" y2="300"/>
+          <line x1="0" y1="360" x2="900" y2="360"/>
+          <line x1="0" y1="420" x2="900" y2="420"/>
+          <line x1="0" y1="480" x2="900" y2="480"/>
+        </g>
+
+        <!-- Euphrates River (Furat) -->
+        <path d="M 20 80 Q 60 100 80 130 Q 100 160 90 200 Q 80 240 100 270 Q 120 300 110 350 Q 100 400 120 450 Q 140 500 160 520"
+              fill="none" stroke="#1a4a7a" stroke-width="28" stroke-linecap="round" opacity="0.8"/>
+        <path d="M 20 80 Q 60 100 80 130 Q 100 160 90 200 Q 80 240 100 270 Q 120 300 110 350 Q 100 400 120 450 Q 140 500 160 520"
+              fill="none" stroke="#2060a0" stroke-width="18" stroke-linecap="round" opacity="0.6"/>
+        <path d="M 20 80 Q 60 100 80 130 Q 100 160 90 200 Q 80 240 100 270 Q 120 300 110 350 Q 100 400 120 450 Q 140 500 160 520"
+              fill="none" stroke="#4090d0" stroke-width="8" stroke-linecap="round" opacity="0.5"/>
+        <!-- River Label -->
+        <text x="45" y="300" fill="#4090d0" font-size="14" transform="rotate(-75 45 300)">نهر الفرات</text>
+
+        <!-- Sand / terrain -->
+        <rect x="140" y="0" width="760" height="520" fill="#111008" opacity="0.6"/>
+
+        <!-- === LOCATIONS === -->
+
+        <!-- 1. Husain Camp مخيم الحسين -->
+        <g transform="translate(420,200)">
+          <circle cx="0" cy="0" r="28" fill="rgba(139,0,0,0.2)" stroke="#8b0000" stroke-width="2"/>
+          <circle cx="0" cy="0" r="16" fill="rgba(139,0,0,0.5)" stroke="#cc0000" stroke-width="1.5"/>
+          <circle cx="0" cy="0" r="7" fill="#ff3333"/>
+          <!-- Tent icon -->
+          <polygon points="0,-18 12,0 -12,0" fill="none" stroke="#ff6666" stroke-width="1.5" opacity="0.6"/>
+          <text x="0" y="42" text-anchor="middle" fill="#ffaaaa" font-size="13" font-weight="bold">مخيم الإمام الحسين ع</text>
+          <text x="0" y="58" text-anchor="middle" fill="#cc6666" font-size="11">المركز الرئيسي للنهضة</text>
+          <!-- Pulse animation -->
+          <circle cx="0" cy="0" r="28" fill="none" stroke="#8b0000" stroke-width="1" opacity="0">
+            <animate attributeName="r" values="28;50;28" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.6;0;0.6" dur="3s" repeatCount="indefinite"/>
+          </circle>
+        </g>
+
+        <!-- 2. Abbas shrine / water location شريعة الفرات -->
+        <g transform="translate(175,280)">
+          <circle cx="0" cy="0" r="20" fill="rgba(30,60,120,0.3)" stroke="#4090d0" stroke-width="2"/>
+          <circle cx="0" cy="0" r="10" fill="rgba(64,144,208,0.6)"/>
+          <!-- Water drop -->
+          <ellipse cx="0" cy="2" rx="5" ry="7" fill="#4090d0" opacity="0.8"/>
+          <text x="80" y="-5" text-anchor="middle" fill="#88ccff" font-size="12" font-weight="bold">شريعة الفرات</text>
+          <text x="80" y="11" text-anchor="middle" fill="#5599cc" font-size="10">حيث استُشهد العباس ع</text>
+          <line x1="20" y1="0" x2="40" y2="0" stroke="#4090d0" stroke-width="1" stroke-dasharray="3,3"/>
+        </g>
+
+        <!-- 3. Abbas position موقع العباس -->
+        <g transform="translate(240,230)">
+          <rect x="-15" y="-15" width="30" height="30" fill="rgba(100,60,200,0.2)" stroke="#8866ee" stroke-width="1.5" rx="4"/>
+          <text x="0" y="5" text-anchor="middle" fill="#8866ee" font-size="16">⚔</text>
+          <text x="0" y="30" text-anchor="middle" fill="#aa99ff" font-size="11">العباس بن علي ع</text>
+          <text x="0" y="44" text-anchor="middle" fill="#7766bb" font-size="10">قمر بني هاشم</text>
+        </g>
+
+        <!-- 4. Battlefield ميدان المعركة -->
+        <g transform="translate(560,300)">
+          <rect x="-40" y="-20" width="80" height="40" fill="rgba(100,80,0,0.15)" stroke="#aa8800" stroke-width="1" rx="6"/>
+          <text x="0" y="5" text-anchor="middle" fill="#cc9900" font-size="12" font-weight="bold">ميدان المعركة</text>
+          <text x="0" y="20" text-anchor="middle" fill="#886600" font-size="10">١٠ محرم ٦١هـ</text>
+        </g>
+
+        <!-- 5. Enemy Army جيش ابن سعد -->
+        <g transform="translate(680,180)">
+          <circle cx="0" cy="0" r="35" fill="rgba(60,60,60,0.3)" stroke="#666" stroke-width="1.5" stroke-dasharray="5,3"/>
+          <text x="0" y="-5" text-anchor="middle" fill="#999" font-size="12">جيش ابن سعد</text>
+          <text x="0" y="12" text-anchor="middle" fill="#666" font-size="10">٣٠٠٠٠ مقاتل</text>
+        </g>
+
+        <!-- 6. Ali Akbar علي الأكبر -->
+        <g transform="translate(480,310)">
+          <polygon points="0,-12 10,8 -10,8" fill="rgba(200,160,50,0.3)" stroke="#c9a84c" stroke-width="1.5"/>
+          <text x="0" y="22" text-anchor="middle" fill="#c9a84c" font-size="11">علي الأكبر ع</text>
+        </g>
+
+        <!-- 7. Martyrdom spot مصرع الحسين -->
+        <g transform="translate(370,390)">
+          <circle cx="0" cy="0" r="22" fill="rgba(139,0,0,0.3)" stroke="#cc0000" stroke-width="2.5"/>
+          <text x="0" y="-2" text-anchor="middle" fill="#ff4444" font-size="18">☽</text>
+          <text x="0" y="38" text-anchor="middle" fill="#ff3333" font-size="12" font-weight="bold">مصرع الإمام ع</text>
+          <text x="0" y="53" text-anchor="middle" fill="#882222" font-size="10">الشهادة الكبرى</text>
+          <circle cx="0" cy="0" r="22" fill="none" stroke="#cc0000" stroke-width="1">
+            <animate attributeName="r" values="22;40;22" dur="2.5s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.7;0;0.7" dur="2.5s" repeatCount="indefinite"/>
+          </circle>
+        </g>
+
+        <!-- 8. Tents of Women مخيم النساء والأطفال -->
+        <g transform="translate(500,160)">
+          <rect x="-30" y="-15" width="60" height="30" fill="rgba(180,120,0,0.1)" stroke="#a07830" stroke-width="1" rx="5"/>
+          <text x="0" y="5" text-anchor="middle" fill="#c9a84c" font-size="11">خيام النساء</text>
+          <text x="0" y="20" text-anchor="middle" fill="#806000" font-size="9">والأطفال والأسرى</text>
+        </g>
+
+        <!-- 9. Road to Kufa طريق الكوفة -->
+        <path d="M 600 500 Q 680 400 700 350 Q 720 300 680 180" fill="none" stroke="#333" stroke-width="3" stroke-dasharray="8,4"/>
+        <text x="660" y="450" fill="#444" font-size="11" transform="rotate(-55 660 450)">طريق الكوفة</text>
+
+        <!-- Road to Medina طريق المدينة -->
+        <path d="M 850 480 Q 800 400 780 350 Q 760 300 770 200 Q 780 150 800 100" fill="none" stroke="#2a2a2a" stroke-width="2" stroke-dasharray="6,4"/>
+        <text x="840" y="380" fill="#3a3a3a" font-size="11" transform="rotate(75 840 380)">طريق المدينة</text>
+
+        <!-- === LEGEND === -->
+        <rect x="680" y="370" width="200" height="130" fill="rgba(0,0,0,0.7)" stroke="rgba(201,168,76,0.3)" stroke-width="1" rx="6"/>
+        <text x="780" y="392" text-anchor="middle" fill="#c9a84c" font-size="12" font-weight="bold">المفتاح</text>
+        <circle cx="700" cy="410" r="6" fill="#ff3333"/>
+        <text x="715" y="414" fill="#ffaaaa" font-size="11">مواقع النهضة الحسينية</text>
+        <circle cx="700" cy="430" r="6" fill="#4090d0"/>
+        <text x="715" y="434" fill="#88ccff" font-size="11">النهر والمياه</text>
+        <circle cx="700" cy="450" r="6" fill="rgba(100,80,0,0.5)" stroke="#aa8800" stroke-width="1"/>
+        <text x="715" y="454" fill="#cc9900" font-size="11">ميدان المعركة</text>
+        <circle cx="700" cy="470" r="6" fill="rgba(60,60,60,0.5)" stroke="#666" stroke-width="1"/>
+        <text x="715" y="474" fill="#999" font-size="11">جيش الأمويين</text>
+        <line x1="695" y1="488" x2="710" y2="488" stroke="#333" stroke-width="2" stroke-dasharray="4,2"/>
+        <text x="715" y="492" fill="#555" font-size="11">الطرق</text>
+
+        <!-- Title -->
+        <text x="450" y="35" text-anchor="middle" fill="#c9a84c" font-size="18" font-weight="bold" font-family="'Amiri',serif">أرض كربلاء المقدسة — ٦١ هجرية</text>
+        <line x1="200" y1="48" x2="700" y2="48" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+
+        <!-- Compass -->
+        <g transform="translate(840,80)">
+          <circle cx="0" cy="0" r="22" fill="rgba(0,0,0,0.5)" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+          <text x="0" y="-10" text-anchor="middle" fill="#c9a84c" font-size="10">ش</text>
+          <text x="0" y="16" text-anchor="middle" fill="#888" font-size="10">ج</text>
+          <text x="-13" y="4" text-anchor="middle" fill="#888" font-size="10">غ</text>
+          <text x="13" y="4" text-anchor="middle" fill="#888" font-size="10">ش</text>
+          <line x1="0" y1="-6" x2="0" y2="-16" stroke="#c9a84c" stroke-width="2"/>
+        </g>
+      </svg>
+    </div>
+    <p class="reveal" style="color:var(--cream-dim); font-size:0.9rem; margin-top:1.5rem; text-align:center;">
+      ملاحظة: الخارطة تمثيلية توضيحية لمواقع الأحداث الرئيسية في واقعة الطف استناداً للمصادر التاريخية.
+    </p>
+  </div>
+</section>
+
+<div class="blood-separator"><div class="blood-drop"></div></div>
+
+<!-- ADAB -->
+<section id="adab">
+  <div class="section-label">المنهج</div>
+  <h2 class="section-title">آداب أهل البيت عليهم السلام</h2>
+  <div class="gold-divider"></div>
+  <p class="reveal" style="color:var(--cream-dim);">
+    تركت نهضة الحسين ع منظومةً أخلاقية كاملة استمدّها من النبي ﷺ وعليٍّ ع وفاطمة ع — تصلح لكل زمان ومكان.
+  </p>
+
+  <div class="adab-grid">
+    <div class="adab-card">
+      <div class="adab-number">١</div>
+      <h3>الصدق والأمانة</h3>
+      <p>«كونوا دعاةً إلى الخير بغير ألسنتكم» — الأهل البيت جعلوا الصدق عموداً للحياة، مهما كلّف الثمن.</p>
+    </div>
+    <div class="adab-card">
+      <div class="adab-number">٢</div>
+      <h3>الصبر والثبات</h3>
+      <p>«الصبر من الإيمان كالرأس من الجسد» — في أقسى اللحظات، لم يهن الحسين ع ولم تتزعزع عزيمته.</p>
+    </div>
+    <div class="adab-card">
+      <div class="adab-number">٣</div>
+      <h3>الكرم والعطاء</h3>
+      <p>بنى أهل البيت مدرسةً في الجود والسخاء، يُطعمون المسكين واليتيم والأسير حتى في أيام شُحّهم.</p>
+    </div>
+    <div class="adab-card">
+      <div class="adab-number">٤</div>
+      <h3>الرحمة والعفو</h3>
+      <p>«تخلّقوا بأخلاق الله» — العفو حتى عن الظالم، والرحمة حتى بالعدو — هذا منهجهم في العلاقات.</p>
+    </div>
+    <div class="adab-card">
+      <div class="adab-number">٥</div>
+      <h3>العلم والتعلم</h3>
+      <p>«اطلبوا العلم من المهد إلى اللحد» — الأهل البيت كانوا منارةً في العلم والفقه والأخلاق والحكمة.</p>
+    </div>
+    <div class="adab-card">
+      <div class="adab-number">٦</div>
+      <h3>الكرامة والإباء</h3>
+      <p>ورث أبناء فاطمة ع منها ومن أبيها ع رفضَ الذل والهوان، مهما كان المتسلط قوياً وباطشاً.</p>
+    </div>
+  </div>
+</section>
+
+<div class="blood-separator"><div class="blood-drop"></div></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-title">طريقُ الحُسين لا ينتهي</div>
+  <p style="color:var(--gold); opacity:0.7; margin:0.5rem 0; font-family:'Amiri',serif; font-size:1.1rem;">
+    كلُّ يومٍ عاشوراء، وكلُّ أرضٍ كربلاء
+  </p>
+  <p style="margin-top:1.5rem; font-size:0.85rem; color:rgba(245,240,232,0.25);">
+    صُمِّم بمحبة الحسين ع — ١٤٤٦ هجرية
+  </p>
+</footer>
+
+<script>
+// ===== STARS =====
+const canvas = document.getElementById('stars-canvas');
+const ctx = canvas.getContext('2d');
+let stars = [];
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+function createStars() {
+  stars = [];
+  for (let i = 0; i < 200; i++) {
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.5 + 0.3,
+      alpha: Math.random(),
+      speed: Math.random() * 0.005 + 0.002,
+      phase: Math.random() * Math.PI * 2
+    });
+  }
+}
+
+function drawStars(t) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  stars.forEach(s => {
+    const a = 0.3 + 0.5 * Math.sin(s.phase + t * s.speed);
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(201,168,76,${a})`;
+    ctx.fill();
+  });
+  requestAnimationFrame(tt => drawStars(tt / 1000));
+}
+
+resizeCanvas();
+createStars();
+drawStars(0);
+window.addEventListener('resize', () => { resizeCanvas(); createStars(); });
+
+// ===== GOLDEN SCROLL LINE =====
+const goldenLine = document.getElementById('golden-line');
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const total = document.body.scrollHeight - window.innerHeight;
+  const pct = total > 0 ? (scrolled / total) * 100 : 0;
+  goldenLine.style.height = pct + 'vh';
+});
+
+// ===== SCROLL REVEAL =====
+const revealEls = document.querySelectorAll(
+  '.reveal, .timeline-item, .goal-card, .quote-item, .karbala-card, .adab-card'
+);
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, entry.target.dataset.delay || 0);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+revealEls.forEach((el, i) => {
+  el.dataset.delay = (i % 6) * 100;
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
