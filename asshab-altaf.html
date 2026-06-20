@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الإمام السجاد وأصحاب الطف — سيرهم وأقوالهم</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --gold: #c9a84c;
+    --gold-light: #e8c96a;
+    --gold-dark: #9a7830;
+    --blood: #8b0000;
+    --blood-light: #b30000;
+    --cream: #f5f0e8;
+    --cream-dim: #d4cfc7;
+    --gray: #1a1a1a;
+    --gray2: #222;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 18px;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  #stars-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  .golden-line {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 3px;
+    height: 0;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    z-index: 999;
+    transition: height 0.1s linear;
+    box-shadow: 0 0 10px var(--gold);
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed;
+    top: 0; right: 0; left: 0;
+    z-index: 100;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    padding: 0.8rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .nav-logo {
+    font-family: 'Amiri', serif;
+    font-size: 1.2rem;
+    color: var(--gold);
+    letter-spacing: 0.03em;
+    text-decoration: none;
+  }
+
+  .nav-back {
+    color: var(--cream-dim);
+    text-decoration: none;
+    font-size: 0.9rem;
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    transition: all 0.3s;
+  }
+  .nav-back:hover { border-color: var(--gold); color: var(--gold); }
+
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.8rem;
+    color: var(--gold);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+  }
+
+  h1.page-title {
+    font-family: 'Amiri', serif;
+    font-size: clamp(2.2rem, 6vw, 3.5rem);
+    color: var(--gold);
+    line-height: 1.3;
+    text-shadow: 0 0 50px rgba(201,168,76,0.25);
+  }
+
+  .gold-divider {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(to left, transparent, var(--gold), transparent);
+    margin: 1.5rem 0;
+  }
+
+  /* ===== HERO ===== */
+  #hero {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Amiri', serif;
+    color: var(--blood-light);
+    font-size: 1rem;
+    opacity: 0.8;
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+  }
+
+  .hero-desc {
+    max-width: 650px;
+    color: var(--cream-dim);
+    margin-top: 1.5rem;
+    font-size: 1.05rem;
+  }
+
+  .blood-separator {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to left, transparent, var(--blood) 30%, var(--blood) 70%, transparent);
+  }
+
+  .blood-drop {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 12px;
+    background: var(--blood);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    box-shadow: 0 0 15px var(--blood-light);
+  }
+
+  /* ===== CARDS GRID ===== */
+  .figures-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .figure-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 14px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.35s ease;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .figure-card.visible { opacity: 1; transform: translateY(0); }
+
+  .figure-card:hover {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.06);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  }
+
+  .figure-card-head {
+    padding: 1.8rem 1.6rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .figure-emblem {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.25), rgba(139,0,0,0.15));
+    border: 1.5px solid rgba(201,168,76,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    flex-shrink: 0;
+  }
+
+  .figure-name-block { flex: 1; }
+
+  .figure-name {
+    font-family: 'Amiri', serif;
+    font-size: 1.3rem;
+    color: var(--gold);
+    line-height: 1.4;
+  }
+
+  .figure-title {
+    font-size: 0.85rem;
+    color: var(--cream-dim);
+    opacity: 0.8;
+    margin-top: 0.2rem;
+  }
+
+  .figure-toggle {
+    font-size: 1.3rem;
+    color: var(--gold);
+    transition: transform 0.35s;
+    flex-shrink: 0;
+  }
+
+  .figure-card.open .figure-toggle { transform: rotate(45deg); }
+
+  .figure-card-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
+
+  .figure-card.open .figure-card-body {
+    max-height: 3000px;
+    transition: max-height 0.8s ease;
+  }
+
+  .figure-card-inner {
+    padding: 0 1.6rem 2rem;
+    border-top: 1px solid rgba(201,168,76,0.15);
+    padding-top: 1.5rem;
+    margin: 0 1.6rem;
+  }
+
+  .figure-card-inner h4 {
+    font-family: 'Amiri', serif;
+    color: var(--gold-light);
+    font-size: 1.05rem;
+    margin: 1.3rem 0 0.6rem;
+  }
+  .figure-card-inner h4:first-child { margin-top: 0; }
+
+  .figure-card-inner p {
+    color: var(--cream-dim);
+    font-size: 0.97rem;
+    line-height: 1.85;
+  }
+
+  .figure-quote-box {
+    background: rgba(139,0,0,0.08);
+    border-right: 3px solid var(--blood);
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+    border-radius: 4px;
+  }
+
+  .figure-quote-box p {
+    font-family: 'Amiri', serif;
+    color: var(--cream);
+    font-size: 1.05rem;
+    line-height: 1.9;
+  }
+
+  .figure-quote-box span.qsource {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--gold);
+    margin-top: 0.5rem;
+    font-family: 'Noto Naskh Arabic', serif;
+  }
+
+  .figure-source-tag {
+    display: inline-block;
+    font-size: 0.78rem;
+    color: var(--gold-dark);
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 0.2rem 0.7rem;
+    border-radius: 12px;
+    margin: 0.2rem 0.3rem 0.2rem 0;
+  }
+
+  .sources-note {
+    margin-top: 0.8rem;
+    padding-top: 0.8rem;
+    border-top: 1px dashed rgba(201,168,76,0.15);
+  }
+
+  /* ===== FOOTER NOTE ===== */
+  .scholarly-note {
+    margin-top: 4rem;
+    background: rgba(201,168,76,0.05);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 12px;
+    padding: 1.8rem;
+    text-align: center;
+  }
+
+  .scholarly-note p {
+    color: var(--cream-dim);
+    font-size: 0.92rem;
+    line-height: 1.9;
+  }
+
+  .scholarly-note .note-title {
+    font-family: 'Amiri', serif;
+    color: var(--gold);
+    font-size: 1.1rem;
+    margin-bottom: 0.6rem;
+  }
+
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 4rem 2rem 3rem;
+    border-top: 1px solid rgba(201,168,76,0.1);
+  }
+
+  footer .footer-title {
+    font-family: 'Amiri', serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  footer p.copy { font-size: 0.85rem; color: rgba(245,240,232,0.3); margin-top: 1.5rem; }
+
+  @media (max-width: 640px) {
+    nav { padding: 0.6rem 1rem; }
+    section { padding: 4rem 1.2rem; }
+    .figure-card-head { padding: 1.4rem 1.2rem; }
+    .figure-card-inner { margin: 0 1.2rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="stars-canvas"></canvas>
+<div class="golden-line" id="golden-line"></div>
+
+<nav>
+  <a href="tariq-alhussain.html" class="nav-logo">طريق الحسين ع</a>
+  <a href="tariq-alhussain.html" class="nav-back">← العودة للصفحة الرئيسية</a>
+</nav>
+
+<section id="hero">
+  <div class="hero-eyebrow">سِيَر وأقوال</div>
+  <h1 class="page-title">أصحاب الطف وأهل بيت الحسين ع</h1>
+  <div class="gold-divider" style="margin:1.5rem auto;"></div>
+  <p class="hero-desc">
+    ثمانية أسماء خلّدها التاريخ في كربلاء وما بعدها — الإمام المعصوم الذي حفظ الإمامة، وسبعة ممن كتبوا فصولاً من الوفاء والتضحية. اضغط على أي بطاقة لتقرأ سيرته وأقواله ومصادرها.
+  </p>
+</section>
+
+<div class="blood-separator"><div class="blood-drop"></div></div>
+
+<section id="figures">
+  <div class="section-label">السِّيَر</div>
+
+  <div class="figures-grid">
+
+    <!-- ===== 0. ZAYN AL-ABIDEEN ===== -->
+    <div class="figure-card" style="border-color:rgba(201,168,76,0.45); background:rgba(201,168,76,0.04);">
+      <div class="figure-card-head">
+        <div class="figure-emblem" style="background:radial-gradient(circle, rgba(201,168,76,0.4), rgba(201,168,76,0.1)); border-color:var(--gold);">☪️</div>
+        <div class="figure-name-block">
+          <div class="figure-name">الإمام علي بن الحسين زين العابدين عليه السلام</div>
+          <div class="figure-title">الإمام الرابع المعصوم — سيد الساجدين</div>
+        </div>
+        <div class="figure-toggle">+</div>
+      </div>
+      <div class="figure-card-body">
+        <div class="figure-card-inner">
+
+          <h4>نسبه ومولده</h4>
+          <p>
+            هو علي بن الحسين بن علي عليهم السلام، أمّه شهربانو (أو شاه زنان كما تذكر بعض المصادر)، وُلد في المدينة المنورة سنة ٣٨ هـ تقريباً. هو الإمام الرابع عند الشيعة الإمامية الاثني عشرية بعد جدّه أمير المؤمنين وعمّه الحسن وأبيه الحسين عليهم السلام.
+          </p>
+
+          <h4>لقبه ومكانته</h4>
+          <p>
+            عُرف بـ«زين العابدين» و«السجاد» لكثرة سجوده وعبادته، حتى ذُكر أن آثار السجود كانت بادية على جبهته وركبتيه. كان إماماً معصوماً عند الشيعة، حجة الله على خلقه بعد أبيه الحسين ع، وصاحب الصحيفة السجادية المعروفة بـ«إنجيل أهل البيت» و«زبور آل محمد» لما فيها من أدعية ومناجاة عميقة.
+          </p>
+
+          <h4>دوره في كربلاء</h4>
+          <p>
+            كان الإمام زين العابدين ع حاضراً في كربلاء، لكنه كان مريضاً مرضاً شديداً أقعده عن القتال، وهذا ما حفظ النسل الحسيني واستمرار الإمامة من بعده بإرادة إلهية. شهد استشهاد أبيه وإخوته وأعمامه وهو طريح الفراش، ثم تحمّل مسؤولية القافلة وأهل البيت بعد الواقعة وهو في تلك الحال.
+          </p>
+
+          <div class="figure-quote-box">
+            <p>ما رأيت إلا جميلاً</p>
+            <span class="qsource">من كلامه المنقول في وصف ما جرى على أهل البيت، تأكيداً لرضاه بقضاء الله وحسن عاقبة الشهادة</span>
+          </div>
+
+          <h4>دوره بعد كربلاء</h4>
+          <p>
+            تولى الإمام زين العابدين ع قيادة قافلة السبايا من كربلاء إلى الكوفة فالشام، وألقى خطباً بليغة في الكوفة والشام أقام بها الحجة على الأمة وبيّن مظلومية أهل البيت، إلى جانب جهود عمته زينب ع. بعد عودته إلى المدينة، انصرف إلى العبادة والدعاء والتعليم، وأسس مدرسة فقهية وأخلاقية تركت أثراً عميقاً، تجلّت في الصحيفة السجادية ورسالة الحقوق.
+          </p>
+
+          <h4>مكانته عند أهل البيت</h4>
+          <p>
+            يُعدّ الإمام السجاد ع حلقة الوصل التي حفظت استمرار خط الإمامة بعد مأساة كربلاء، وبه استمرت ذرية الحسين ع. تركت عباداته ودعاؤه وحكمه أثراً خالداً في الفكر الإسلامي عموماً والشيعي خصوصاً.
+          </p>
+
+          <div class="sources-note">
+            <span class="figure-source-tag">الإرشاد — الشيخ المفيد</span>
+            <span class="figure-source-tag">اللهوف — ابن طاووس</span>
+            <span class="figure-source-tag">الصحيفة السجادية</span>
+            <span class="figure-source-tag">بحار الأنوار — المجلسي</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 1. ABBAS ===== -->
+    <div class="figure-card">
+      <div class="figure-card-head">
+        <div class="figure-emblem">⚔️</div>
+        <div class="figure-name-block">
+          <div class="figure-name">أبو الفضل العباس عليه السلام</div>
+          <div class="figure-title">قمر بني هاشم — حامل لواء الحسين ع</div>
+        </div>
+        <div class="figure-toggle">+</div>
+      </div>
+      <div class="figure-card-body">
+        <div class="figure-card-inner">
+
+          <h4>نسبه ومولده</h4>
+          <p>
+            هو العباس بن علي بن أبي طالب عليه السلام، أمّه أم البنين فاطمة بنت حزام الكلابية. وُلد في المدينة المنورة، وكان أكبر إخوته من أمه (عبدالله وجعفر وعثمان). عُرف بقمر بني هاشم لجماله، وبأبي الفضل لكرمه وشجاعته.
+          </p>
+
+          <h4>صفاته ومكانته</h4>
+          <p>
+            عُرف العباس ع بشدة بأسه وقوة بدنه وحسن خلقه، وكان شديد التعلق بأخيه الحسين ع، يخدمه ويحرص على رضاه حتى قبل وقوع الواقعة. كان رضيع الكرامة في طاعته للإمام؛ روي أنه كان يقول لأخيه: «نفسي لك الفداء يا أبا عبدالله»، ولا يأخذ خطوة إلا بإذنه.
+          </p>
+
+          <h4>دوره في كربلاء</h4>
+          <p>
+            حمل العباس ع راية أخيه الحسين ع طوال أيام الطف، وكان يتولى حماية المخيم. في يوم عاشوراء، بعد استشهاد أغلب الأصحاب وأهل البيت، اشتد العطش بالأطفال، فاستأذن أخاه الحسين ع للذهاب إلى شريعة الفرات لجلب الماء، فأذن له.
+          </p>
+
+          <div class="figure-quote-box">
+            <p>لا والله لا أذوق الماء وسيدي عطشان</p>
+            <span class="qsource">القول المشهور المنقول في كتب المقاتل عن موقف العباس ع عند وصوله إلى الماء</span>
+          </div>
+
+          <p>
+            وصل إلى الماء فملأ القربة، فتذكر عطش الحسين ع والأطفال فلم يشرب، وفي طريق عودته إلى المخيم اعترضه جيش ابن سعد، فقاتل قتالاً عظيماً حتى قُطعت يداه، ثم أُصيب بسهم في عينه فسقط شهيداً عليه السلام، وهو ما يزال يحمي الراية حتى آخر لحظة.
+          </p>
+
+          <h4>مكانته عند أهل البيت</h4>
+          <p>
+            بكاه الحسين ع بكاءً شديداً، وقال فيه ما يدل على عظيم مكانته. يُعرف العباس ع بـ«باب الحوائج» عند الشيعة، ويُزار قبره في كربلاء بجوار قبر أخيه الحسين ع.
+          </p>
+
+          <div class="sources-note">
+            <span class="figure-source-tag">مقتل أبي مخنف</span>
+            <span class="figure-source-tag">اللهوف — ابن طاووس</span>
+            <span class="figure-source-tag">بحار الأنوار — المجلسي</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 2. ZAINAB ===== -->
+    <div class="figure-card">
+      <div class="figure-card-head">
+        <div class="figure-emblem">🕊️</div>
+        <div class="figure-name-block">
+          <div class="figure-name">السيدة زينب بنت علي عليها السلام</div>
+          <div class="figure-title">عقيلة بني هاشم — رسولة كربلاء</div>
+        </div>
+        <div class="figure-toggle">+</div>
+      </div>
+      <div class="figure-card-body">
+        <div class="figure-card-inner">
+
+          <h4>نسبها ومولدها</h4>
+          <p>
+            هي زينب بنت علي بن أبي طالب وفاطمة الزهراء عليهما السلام، وُلدت في المدينة المنورة، وعاشت في كنف جدّها النبي ﷺ سنوات قليلة، ثم في كنف أبويها وأخويها الحسن والحسين عليهم السلام، فنشأت على العلم والفضل والصبر.
+          </p>
+
+          <h4>صفاتها ومكانتها</h4>
+          <p>
+            عُرفت بالفصاحة والعلم الغزير حتى لُقّبت بـ«عالمة غير معلّمة»، وكانت تُدرّس النساء في الكوفة. تحمّلت مسؤولية رعاية أبناء إخوتها والنساء والأطفال في القافلة بعد استشهاد الرجال في كربلاء.
+          </p>
+
+          <h4>دورها في كربلاء وما بعدها</h4>
+          <p>
+            شهدت زينب ع استشهاد إخوتها وأبنائها وأبناء إخوتها واحداً تلو الآخر في يوم عاشوراء، وبقيت صامدة تتولى شؤون الحريم والأطفال وسط المعركة. بعد استشهاد الحسين ع، تولت قيادة القافلة معنوياً، وواجهت ابن زياد في الكوفة بخطبة مشهورة لم تُظهر فيها ضعفاً ولا خوفاً.
+          </p>
+
+          <div class="figure-quote-box">
+            <p>ما رأيت إلا جميلاً</p>
+            <span class="qsource">جوابها المشهور حين سألها ابن زياد عمّا رأت من فعل الله بأهلها</span>
+          </div>
+
+          <p>
+            ثم خطبت في الشام أمام يزيد بن معاوية خطبةً بليغة فضحت فيها الظلم وأقامت الحجة، فكانت بذلك الصوت الذي حمل رسالة كربلاء إلى الأمة بعد صمت السيف.
+          </p>
+
+          <h4>مكانتها عند أهل البيت</h4>
+          <p>
+            تُلقَّب زينب ع بـ«شريكة الحسين في نهضته»، إذ لولا خطبها ومواقفها بعد الواقعة لما وصلت رسالة كربلاء كما وصلت. مقامها الشريف في دمشق يُزار حتى اليوم.
+          </p>
+
+          <div class="sources-note">
+            <span class="figure-source-tag">مقتل أبي مخنف</span>
+            <span class="figure-source-tag">اللهوف — ابن طاووس</span>
+            <span class="figure-source-tag">بلاغات النساء — ابن طيفور</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 3. ALI AKBAR ===== -->
+    <div class="figure-card">
+      <div class="figure-card-head">
+        <div class="figure-emblem">🌙</div>
+        <div class="figure-name-block">
+          <div class="figure-name">علي الأكبر عليه السلام</div>
+          <div class="figure-title">أشبه الناس بالنبي ﷺ خَلقاً وخُلقاً</div>
+        </div>
+        <div class="figure-toggle">+</div>
+      </div>
+      <div class="figure-card-body">
+        <div class="figure-card-inner">
+
+          <h4>نسبه ومولده</h4>
+          <p>
+            هو علي الأكبر بن الحسين بن علي عليهما السلام، أمّه ليلى بنت أبي مرة الثقفية. هو أكبر أبناء الحسين ع سناً، ولذلك عُرف بـ«الأكبر» تمييزاً له عن أخيه الإمام زين العابدين علي بن الحسين ع.
+          </p>
+
+          <h4>صفاته ومكانته</h4>
+          <p>
+            اشتهر بشبهه الكبير بجدّه رسول الله ﷺ في الخَلق والمنطق والهيئة، حتى كان الصحابة إذا اشتاقوا لرؤية النبي ﷺ نظروا إليه. كان شاباً فصيحاً شجاعاً عابداً.
+          </p>
+
+          <h4>دوره في كربلاء</h4>
+          <p>
+            كان علي الأكبر ع أول من استُشهد من أهل بيت الحسين ع في معركة يوم عاشوراء بعد استشهاد الأصحاب. استأذن أباه للقتال فأذن له وهو يبكي، ونظر إلى السماء داعياً.
+          </p>
+
+          <div class="figure-quote-box">
+            <p>اللهم اشهد عليهم؛ فقد برز إليهم غلام أشبه الناس خَلقاً وخُلقاً ومنطقاً برسولك</p>
+            <span class="qsource">دعاء الحسين ع المنقول عند توديع ولده علي الأكبر للقتال</span>
+          </div>
+
+          <p>
+            قاتل علي الأكبر ع قتالاً شديداً حتى أثخن بالجراح، فطعنه أحد الجنود برمح فسقط شهيداً، وأقبل الحسين ع نحوه يحتضنه وقد خضّب الدم وجهه ولحيته.
+          </p>
+
+          <h4>مكانته عند أهل البيت</h4>
+          <p>
+            يمثل علي الأكبر ع في الذاكرة الحسينية صورة الشباب المؤمن المضحّي، ورمزاً لشدة المصاب على الحسين ع الذي فقد فيه ولده الذي يشبه جدّه النبي ﷺ.
+          </p>
+
+          <div class="sources-note">
+            <span class="figure-source-tag">مقتل أبي مخنف</span>
+            <span class="figure-source-tag">اللهوف — ابن طاووس</span>
+            <span class="figure-source-tag">مقاتل الطالبيين — أبو الفرج الأصفهاني</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 4. SAKINA ===== -->
+    <div class="figure-card">
+      <div class="figure-card-head">
+        <div class="figure-emblem">🌸</div>
+        <div class="figure-name-block">
+          <div class="figure-name">سكينة بنت الحسين عليها السلام</div>
+          <div class="figure-title">الطفلة الشاهدة على عاشوراء</div>
+        </div>
+        <div class="figure-toggle">+</div>
+      </div>
+      <div class="figure-card-body">
+        <div class="figure-card-inner">
+
+          <h4>نسبها ومولدها</h4>
+          <p>
+            هي سكينة بنت الحسين بن علي عليهما السلام، من أمّه الرباب بنت امرئ القيس. كانت من أحب بنات الحسين ع إلى قلبه، وكانت في كربلاء طفلة صغيرة شهدت أحداث الواقعة بكل تفاصيلها المؤلمة.
+          </p>
+
+          <h4>صفاتها ومكانتها</h4>
+          <p>
+            تذكر المصادر التاريخية شدة تعلق الحسين ع بابنته سكينة ع وحنانه عليها. عاشت بعد كربلاء حياةً حافلة بالأسر والسبي إلى الكوفة فالشام، وبعد عودتها كانت تُعرف بفصاحتها وحفظها لتفاصيل الواقعة.
+          </p>
+
+          <h4>دورها في كربلاء وما بعدها</h4>
+          <p>
+            شهدت سكينة ع استشهاد أبيها الحسين ع وعمومتها وإخوتها، وعاشت رحلة السبي من كربلاء إلى الكوفة ثم الشام وهي طفلة. تُروى عنها مواقف تعبّر عن حزنها العميق على فقد أبيها، وبقيت طوال حياتها بعد ذلك تندبه وتحفظ ذكراه.
+          </p>
+
+          <p>
+            تنبغي الإشارة إلى أن كثيراً من الروايات الشعبية حول تفاصيل دقيقة من حياة سكينة ع في كربلاء فيها تفاوت بين المصادر التاريخية الموثقة والروايات المتداولة على المنبر، فالمؤرخون يوردون عنها القليل الموثّق مقارنة بما هو شائع.
+          </p>
+
+          <h4>مكانتها عند أهل البيت</h4>
+          <p>
+            تبقى سكينة ع في الذاكرة الحسينية رمزاً لمعاناة الطفولة في كربلاء، وشاهدة صغيرة على أعظم مأساة شهدها التاريخ الإسلامي.
+          </p>
+
+          <div class="sources-note">
+            <span class="figure-source-tag">مقاتل الطالبيين — أبو الفرج الأصفهاني</span>
+            <span class="figure-source-tag">أعيان الشيعة — السيد محسن الأمين</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 5. QASIM ===== -->
+    <div class="figure-card">
+      <div class="figure-card-head">
+        <div class="figure-emblem">🌷</div>
+        <div class="figure-name-block">
+          <div class="figure-name">القاسم بن الحسن عليه السلام</div>
+          <div class="figure-title">فتى بني هاشم — ابن أخي الحسين ع</div>
+        </div>
+        <div class="figure-toggle">+</div>
+      </div>
+      <div class="figure-card-body">
+        <div class="figure-card-inner">
+
+          <h4>نسبه ومولده</h4>
+          <p>
+            هو القاسم بن الحسن بن علي عليهم السلام، ابن أخي الحسين ع، أي ابن الإمام الحسن المجتبى ع. كان فتىً يافعاً عند وقوع واقعة الطف.
+          </p>
+
+          <h4>صفاته ومكانته</h4>
+          <p>
+            تذكر كتب المقاتل أن القاسم ع كان قريباً من عمّه الحسين ع، شديد التعلق به بعد استشهاد والده الحسن ع، وكان فيه شجاعة وإقدام رغم صغر سنه.
+          </p>
+
+          <h4>دوره في كربلاء</h4>
+          <p>
+            استأذن القاسم ع عمّه الحسين ع للقتال يوم عاشوراء، فتردد الحسين ع لصغر سنه ثم أذن له. قاتل قتالاً شجاعاً حتى استُشهد، وقد ورد أن الحسين ع حزن عليه حزناً شديداً، إذ كان يرى فيه امتداداً لأخيه الحسن ع.
+          </p>
+
+          <p>
+            تجدر الإشارة إلى أن تفاصيل كثيرة شائعة عن استشهاد القاسم ع (كقصة زواجه أو عمره الدقيق) هي من الروايات المتداولة في الأدب الحسيني والمنبر، وتتفاوت قوة سندها بين المصادر التاريخية، وقد اختُلف فيها بين المؤرخين القدامى. ما هو ثابت ومتفق عليه هو استشهاده يوم عاشوراء وهو من فتيان بني هاشم.
+          </p>
+
+          <h4>مكانته عند أهل البيت</h4>
+          <p>
+            يمثّل القاسم ع في الوجدان الحسيني رمز الفتوة المبكرة والتضحية رغم صغر السن، وأحد فتيان بني هاشم الذين ضحّوا بأرواحهم نصرةً للحق.
+          </p>
+
+          <div class="sources-note">
+            <span class="figure-source-tag">مقتل أبي مخنف</span>
+            <span class="figure-source-tag">اللهوف — ابن طاووس</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 6. RUQAYYA ===== -->
+    <div class="figure-card">
+      <div class="figure-card-head">
+        <div class="figure-emblem">🕯️</div>
+        <div class="figure-name-block">
+          <div class="figure-name">رقية بنت الحسين عليها السلام</div>
+          <div class="figure-title">الطفلة التي بكت أباها في الشام</div>
+        </div>
+        <div class="figure-toggle">+</div>
+      </div>
+      <div class="figure-card-body">
+        <div class="figure-card-inner">
+
+          <h4>نسبها</h4>
+          <p>
+            تُذكر رقية في الموروث الشعبي والمنبر الحسيني بصفتها ابنة صغيرة للحسين ع رافقت موكب السبايا إلى الشام.
+          </p>
+
+          <h4>ملاحظة منهجية مهمة</h4>
+          <p>
+            من الأمانة العلمية أن نوضح أن شخصية رقية بنت الحسين ع بالتفاصيل المشهورة شعبياً (سنّها، ورؤيتها لرأس أبيها في الشام، ووفاتها هناك) لم تَرِد في كتب المقاتل والتاريخ القديمة المعتمدة (كالطبري، وأبي مخنف، والشيخ المفيد، وابن طاووس في اللهوف). هذه القصة انتشرت لاحقاً عبر المرويات الشعبية والمنبر الحسيني، وذكرها بعض العلماء المتأخرين بصيغة "يُقال" أو "روي" دون إسناد تاريخي قوي.
+          </p>
+
+          <p>
+            مقامها في دمشق (مقام السيدة رقية) معروف ويُزار من قِبل المؤمنين، وهو محل احترام وتقدير، لكن كعالمة بحثية، الأمانة تقتضي التفريق بين ما ثبت بسند تاريخي صحيح وما هو من قبيل الروايات الشعبية المتوارثة التي قد تحمل دلالات رمزية صادقة عن معاناة أطفال السبي عموماً، حتى لو لم تثبت تفاصيلها الدقيقة.
+          </p>
+
+          <h4>الدلالة الرمزية</h4>
+          <p>
+            تبقى قصة رقية، بصرف النظر عن دقة تفاصيلها التاريخية، حاضرة بقوة في الوجدان الشعبي الشيعي كرمز لمعاناة أطفال أهل البيت في رحلة السبي، وهذا ما يفسر انتشارها رغم ضعف توثيقها التاريخي.
+          </p>
+
+          <div class="sources-note">
+            <span class="figure-source-tag">روايات شعبية متأخرة</span>
+            <span class="figure-source-tag">غير موثقة في المقاتل القديمة</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 7. ABDULLAH RADHEE ===== -->
+    <div class="figure-card">
+      <div class="figure-card-head">
+        <div class="figure-emblem">👶</div>
+        <div class="figure-name-block">
+          <div class="figure-name">عبدالله الرضيع عليه السلام</div>
+          <div class="figure-title">الطفل الرضيع — آخر شهداء كربلاء من أبناء الحسين</div>
+        </div>
+        <div class="figure-toggle">+</div>
+      </div>
+      <div class="figure-card-body">
+        <div class="figure-card-inner">
+
+          <h4>نسبه</h4>
+          <p>
+            هو عبدالله بن الحسين بن علي عليهما السلام، المعروف بـ"الرضيع" أو "الطفل"، أصغر أبناء الحسين ع سناً، وكان رضيعاً وقت وقوع واقعة الطف.
+          </p>
+
+          <h4>دوره في كربلاء</h4>
+          <p>
+            تذكر كتب المقاتل أن الحسين ع، بعد استشهاد جميع أصحابه وأهل بيته، حمل ولده الرضيع وخرج به أمام الجيش طالباً الماء له، أو لإقامة الحجة على القوم وبيان شدة ظلمهم الذي بلغ حد قتل طفل رضيع.
+          </p>
+
+          <div class="figure-quote-box">
+            <p>إن لم ترحموني فارحموا هذا الطفل</p>
+            <span class="qsource">القول المنقول عن الحسين ع في موقف استسقائه الماء لرضيعه أمام الجيش</span>
+          </div>
+
+          <p>
+            فرماه أحد الجنود (يُذكر في المصادر باسم حرملة بن كاهل) بسهم ذبحه وهو في حِجر أبيه، فتلقى الحسين ع دمه بكفّيه ورمى به نحو السماء، في مشهد من أشد مشاهد الطف إيلاماً.
+          </p>
+
+          <h4>مكانته عند أهل البيت</h4>
+          <p>
+            يُعدّ عبدالله الرضيع ع رمزاً لبراءة الضحية وفداحة الجريمة التي ارتُكبت في كربلاء، إذ لم يُستثنَ حتى الرضيع من القتل. يُزار قبره الشريف في كربلاء بجوار قبر أبيه الحسين ع.
+          </p>
+
+          <div class="sources-note">
+            <span class="figure-source-tag">مقتل أبي مخنف</span>
+            <span class="figure-source-tag">اللهوف — ابن طاووس</span>
+            <span class="figure-source-tag">بحار الأنوار — المجلسي</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="scholarly-note">
+    <div class="note-title">ملاحظة حول المصادر</div>
+    <p>
+      الروايات التاريخية لواقعة الطف تتفاوت في قوة أسانيدها بين المصادر القديمة المعتمدة (الطبري، أبو مخنف، الشيخ المفيد في الإرشاد، ابن طاووس في اللهوف، أبو الفرج الأصفهاني في مقاتل الطالبيين) والمرويات الشعبية المتأخرة التي انتشرت عبر المنبر الحسيني. حرصنا في هذه الصفحة على الإشارة إلى الروايات التي قد تكون أضعف توثيقاً، مع الإبقاء على القيمة الرمزية والإيمانية لها في الوجدان الشيعي. لمزيد من التحقيق العلمي يُنصح بالرجوع إلى أهل الاختصاص والمصادر الأصلية.
+    </p>
+  </div>
+
+</section>
+
+<div class="blood-separator"><div class="blood-drop"></div></div>
+
+<footer>
+  <div class="footer-title">سلامٌ على أهل بيت الحسين وأصحابه</div>
+  <p style="color:var(--gold); opacity:0.7; font-family:'Amiri',serif; font-size:1.05rem;">
+    «السلام عليكم يا أهل بيت النبوة»
+  </p>
+  <p class="copy">صُمِّم بمحبة الحسين ع — ١٤٤٦ هجرية</p>
+</footer>
+
+<script>
+// ===== STARS =====
+const canvas = document.getElementById('stars-canvas');
+const ctx = canvas.getContext('2d');
+let stars = [];
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+function createStars() {
+  stars = [];
+  for (let i = 0; i < 200; i++) {
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.5 + 0.3,
+      speed: Math.random() * 0.005 + 0.002,
+      phase: Math.random() * Math.PI * 2
+    });
+  }
+}
+function drawStars(t) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  stars.forEach(s => {
+    const a = 0.3 + 0.5 * Math.sin(s.phase + t * s.speed);
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(201,168,76,${a})`;
+    ctx.fill();
+  });
+  requestAnimationFrame(tt => drawStars(tt / 1000));
+}
+resizeCanvas(); createStars(); drawStars(0);
+window.addEventListener('resize', () => { resizeCanvas(); createStars(); });
+
+// ===== GOLDEN SCROLL LINE =====
+const goldenLine = document.getElementById('golden-line');
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const total = document.body.scrollHeight - window.innerHeight;
+  const pct = total > 0 ? (scrolled / total) * 100 : 0;
+  goldenLine.style.height = pct + 'vh';
+});
+
+// ===== SCROLL REVEAL FOR CARDS =====
+const cards = document.querySelectorAll('.figure-card');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), (i % 4) * 100);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+cards.forEach(c => observer.observe(c));
+
+// ===== ACCORDION TOGGLE =====
+cards.forEach(card => {
+  const head = card.querySelector('.figure-card-head');
+  head.addEventListener('click', () => {
+    const isOpen = card.classList.contains('open');
+    // close all others (optional: comment out for multi-open)
+    cards.forEach(c => c.classList.remove('open'));
+    if (!isOpen) {
+      card.classList.add('open');
+      setTimeout(() => {
+        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 150);
+    }
+  });
+});
+</script>
+</body>
+</html>
